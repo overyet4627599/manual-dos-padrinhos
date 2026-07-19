@@ -34,8 +34,11 @@
       top: 0;
       width: 100%;
       background-color: rgba(128,0,0,0.9);
-      padding: 10px 0;
+      padding: 10px 20px;
       z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     nav ul {
       list-style: none;
@@ -51,43 +54,122 @@
       color: #fff;
       text-decoration: none;
       font-weight: bold;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    /* Sublinhado animado */
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #800000, #004080);
+      transition: width 0.3s ease;
     }
     nav ul li a:hover {
-      text-decoration: underline;
+      color: #ffd700; /* dourado suave */
+    }
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+    nav ul li a:active {
+      color: #ff4500; /* laranja suave no clique */
+    }
+    nav ul li a:active::after {
+      width: 100%;
+      background: linear-gradient(90deg, #ffd700, #ff4500);
+      transition: none;
     }
 
     /* Botão hambúrguer */
     .menu-toggle {
       display: none;
-      position: absolute;
-      top: 10px;
-      right: 20px;
       cursor: pointer;
-      font-size: 28px;
-      color: #fff;
+      width: 30px;
+      height: 25px;
+      position: relative;
+      z-index: 1100;
+    }
+    .menu-toggle span {
+      background: #fff;
+      display: block;
+      height: 3px;
+      width: 100%;
+      margin: 5px 0;
+      border-radius: 2px;
+      transition: all 0.4s ease;
+    }
+    /* Animação para virar X */
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Fundo escuro translúcido com desfoque */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+    }
+    .overlay.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     @media (max-width: 768px) {
       nav ul {
-        display: none;
+        display: flex;
         flex-direction: column;
         background-color: rgba(128,0,0,0.95);
         position: absolute;
         top: 50px;
         right: 0;
-        width: 200px;
+        width: 220px;
         padding: 10px;
         border-radius: 8px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1100;
       }
       nav ul.show {
-        display: flex;
+        transform: translateX(0);
       }
+      nav ul li {
+        opacity: 0;
+        transform: translateX(20px);
+        transition: all 0.4s ease;
+      }
+      nav ul.show li {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      nav ul.show li:nth-child(1) { transition-delay: 0.1s; }
+      nav ul.show li:nth-child(2) { transition-delay: 0.2s; }
+      nav ul.show li:nth-child(3) { transition-delay: 0.3s; }
+      nav ul.show li:nth-child(4) { transition-delay: 0.4s; }
+      nav ul.show li:nth-child(5) { transition-delay: 0.5s; }
+
       .menu-toggle {
         display: block;
       }
     }
 
-    /* Animações de entrada */
+    /* Conteúdo animado */
     header, section, footer {
       opacity: 0;
       transform: translateY(30px);
@@ -196,7 +278,11 @@
 <body>
 
   <nav>
-    <span class="menu-toggle">&#9776;</span>
+    <div class="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <ul>
       <li><a href="#introducao">Introdução</a></li>
       <li><a href="#padrinhos">Padrinhos</a></li>
@@ -205,6 +291,7 @@
       <li><a href="#recomendacoes">Recomendações</a></li>
     </ul>
   </nav>
+  <div class="overlay"></div>
 
   <header>
     <img src="fotos/foto1.jpeg" alt="Monograma T & K">
@@ -248,7 +335,11 @@
     <p>T & K – 11.09.2026</p>
   </footer>
 
-    <script>
+  <!-- Sons para abrir/fechar menu -->
+  <audio id="menu-open-sound" src="sons/open.mp3" preload="auto"></audio>
+  <audio id="menu-close-sound" src="sons/close.mp3" preload="auto"></audio>
+
+  <script>
     // Script para revelar seções com transição suave
     const elements = document.querySelectorAll('header, section, footer');
 
@@ -262,12 +353,47 @@
 
     elements.forEach(el => observer.observe(el));
 
-    // Script para o menu hambúrguer
+    // Script para menu hambúrguer
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('nav ul');
+    const overlay = document.querySelector('.overlay');
+    const openSound = document.getElementById('menu-open-sound');
+    const closeSound = document.getElementById('menu-close-sound');
 
     menuToggle.addEventListener('click', () => {
+      const isActive = menuToggle.classList.toggle('active');
       navMenu.classList.toggle('show');
+      overlay.classList.toggle('show');
+
+      // Reproduzir som
+      if (isActive) {
+        openSound.currentTime = 0;
+        openSound.play();
+      } else {
+        closeSound.currentTime = 0;
+        closeSound.play();
+      }
+    });
+
+    // Fechar menu ao clicar em um link
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('show');
+        menuToggle.classList.remove('active');
+        overlay.classList.remove('show');
+        closeSound.currentTime = 0;
+        closeSound.play();
+      });
+    });
+
+    // Fechar menu ao clicar fora (overlay)
+    overlay.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+      menuToggle.classList.remove('active');
+      overlay.classList.remove('show');
+      closeSound.currentTime = 0;
+      closeSound.play();
     });
   </script>
 
