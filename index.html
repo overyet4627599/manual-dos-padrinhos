@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual dos Padrinhos</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Fundo floral com desfoque */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('fotos/fundo-floral.png') no-repeat center center fixed;
+      background-size: cover;
+      filter: blur(6px) brightness(0.95);
+      z-index: -1;
+    }
+
+    /* Menu fixo */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(128,0,0,0.9);
+      padding: 10px 0;
+      z-index: 1000;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animações de entrada */
+    header, section, footer {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+    header.visible, section.visible, footer.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Efeito de deslize lateral alternado */
+    section:nth-child(even) {
+      transform: translateX(-50px);
+    }
+    section:nth-child(odd) {
+      transform: translateX(50px);
+    }
+    section.visible {
+      transform: translateX(0);
+    }
+
+    header {
+      text-align: center;
+      padding: 80px 20px 40px;
+      background-color: rgba(255,255,255,0.9);
+      border-bottom: 2px solid #800000;
+      border-radius: 10px;
+      margin: 20px;
+    }
+    header img {
+      max-width: 400px;
+      width: 100%;
+      transition: transform 0.4s ease;
+    }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      background-color: rgba(255,255,255,0.85);
+      margin: 20px;
+      border-radius: 10px;
+    }
+    section h2 {
+      color: #800000;
+      margin-bottom: 20px;
+      font-size: 2em;
+      position: relative;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+    }
+    section.visible h2 {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section.visible h2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #800000, #004080, #800000);
+      animation: underline 1.5s ease forwards, glow 2s infinite alternate;
+    }
+    @keyframes underline {
+      from { width: 0; opacity: 0; }
+      to { width: 100%; opacity: 1; }
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 5px #800000; }
+      to { box-shadow: 0 0 15px #004080; }
+    }
+
+    /* Parágrafos com fade-in */
+    section p, footer p {
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 1s ease;
+    }
+    section.visible p, footer.visible p {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section img, footer img {
+      max-width: 600px;
+      width: 100%;
+      margin: 20px auto;
+      display: block;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    section img:hover, footer img:hover, header img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: rgba(255,255,255,0.9);
+      border-top: 2px solid #800000;
+      font-style: italic;
+      color: #444;
+      border-radius: 10px;
+      margin: 20px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+      }
+      nav ul li {
+        margin: 10px 0;
+      }
+      section img, footer img {
+        max-width: 100%;
+      }
+      section h2 {
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="#introducao">Introdução</a></li>
+      <li><a href="#padrinhos">Padrinhos</a></li>
+      <li><a href="#madrinhas">Madrinhas</a></li>
+      <li><a href="#local">Local</a></li>
+      <li><a href="#recomendacoes">Recomendações</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <img src="fotos/foto1.jpeg" alt="Monograma T & K">
+    <h1>Manual dos Padrinhos</h1>
+    <p>11.09.2026</p>
+  </header>
+
+  <section id="introducao">
+    <h2>Bem-vindos</h2>
+    <img src="fotos/foto2.jpeg" alt="Capa Manual dos Padrinhos">
+    <p>Queridos padrinhos, este manual foi preparado com muito carinho para orientar e celebrar junto conosco este momento especial.</p>
+  </section>
+
+  <section id="padrinhos">
+    <h2>Trajes dos Padrinhos</h2>
+    <img src="fotos/foto4.jpeg" alt="Trajes Padrinhos">
+    <p>Pedimos que os padrinhos usem trajes de gala nas cores da paleta indicada.</p>
+  </section>
+
+  <section id="madrinhas">
+    <h2>Trajes das Madrinhas</h2>
+    <img src="fotos/foto3.jpeg" alt="Trajes Madrinhas">
+    <p>As madrinhas devem usar vestidos de gala em tons de marsala.</p>
+  </section>
+
+  <section id="local">
+    <h2>Horário e Local</h2>
+    <img src="fotos/foto5.jpeg" alt="Horário e Local">
+    <p>Cerimônia às 18h00 na Capela de Santa Luzia. Recepção na casa dos pais da noiva.</p>
+  </section>
+
+  <section id="recomendacoes">
+    <h2>Recomendações Especiais</h2>
+    <img src="fotos/foto6.jpeg" alt="Recomendações">
+    <p>Chegar com antecedência, divertir-se, orar pelo futuro, tirar muitas fotos e lembrar que amamos vocês!</p>
+  </section>
+
+  <footer>
+    <img src="fotos/foto7.jpeg" alt="Versículo e Monograma">
+    <p>“Acima de tudo, revistam-se do amor, que é o elo perfeito.” – Colossenses 3:14</p>
+    <p>T & K – 11.09.2026</p>
+  </footer>
+
+  <script>
+    // Script para revelar seções com transição suave
+    const elements = document.querySelectorAll('header, section, footer');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    elements.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
