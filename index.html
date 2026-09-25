@@ -1,383 +1,727 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manual dos Padrinhos</title>
-  <style>
-    body {
-      font-family: 'Georgia', serif;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      position: relative;
-      overflow-x: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    /* Fundo floral com desfoque */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('fotos/fundo-floral.jpg') no-repeat center center fixed;
-      background-size: cover;
-      filter: blur(6px) brightness(0.95);
-      z-index: -1;
-    }
+    <title>Missão Lolô 👶❤️</title>
 
-    /* Menu fixo */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: rgba(128,0,0,0.9);
-      padding: 10px 20px;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-    }
-    nav ul li {
-      margin: 0 15px;
-    }
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      position: relative;
-      transition: color 0.3s ease;
-    }
-    /* Sublinhado animado */
-    nav ul li a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 0%;
-      height: 2px;
-      background: linear-gradient(90deg, #800000, #004080);
-      transition: width 0.3s ease;
-    }
-    nav ul li a:hover {
-      color: #ffd700; /* dourado suave */
-    }
-    nav ul li a:hover::after {
-      width: 100%;
-    }
-    nav ul li a:active {
-      color: #ff4500; /* laranja suave no clique */
-    }
-    nav ul li a:active::after {
-      width: 100%;
-      background: linear-gradient(90deg, #ffd700, #ff4500);
-      transition: none;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    /* Botão hambúrguer */
-    .menu-toggle {
-      display: none;
-      cursor: pointer;
-      width: 30px;
-      height: 25px;
-      position: relative;
-      z-index: 1100;
-    }
-    .menu-toggle span {
-      background: #fff;
-      display: block;
-      height: 3px;
-      width: 100%;
-      margin: 5px 0;
-      border-radius: 2px;
-      transition: all 0.4s ease;
-    }
-    /* Animação para virar X */
-    .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-    .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
-
-    @media (max-width: 768px) {
-      nav ul {
-        display: flex;
-        flex-direction: column;
-        background-color: rgba(128,0,0,0.95);
-        position: absolute;
-        top: 50px;
-        right: 0;
-        width: 220px;
-        padding: 10px;
-        border-radius: 8px;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in-out;
-        z-index: 1100;
-      }
-      nav ul.show {
-        transform: translateX(0);
-      }
-      nav ul li {
-        opacity: 0;
-        transform: translateX(20px);
-        transition: all 0.4s ease;
-      }
-      nav ul.show li {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      nav ul.show li:nth-child(1) { transition-delay: 0.1s; }
-      nav ul.show li:nth-child(2) { transition-delay: 0.2s; }
-      nav ul.show li:nth-child(3) { transition-delay: 0.3s; }
-      nav ul.show li:nth-child(4) { transition-delay: 0.4s; }
-      nav ul.show li:nth-child(5) { transition-delay: 0.5s; }
-
-      .menu-toggle {
-        display: block;
-      }
-    }
-
-    /* Conteúdo animado */
-    header, section, footer {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s ease;
-    }
-    header.visible, section.visible, footer.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    header {
-      text-align: center;
-      padding: 80px 20px 40px;
-      background-color: rgba(255,255,255,0.9);
-      border-bottom: 2px solid #800000;
-      border-radius: 10px;
-      margin: 20px;
-    }
-    header img {
-      max-width: 400px;
-      width: 100%;
-      transition: transform 0.4s ease;
-    }
-
-    section {
-      padding: 60px 20px;
-      text-align: center;
-      border-bottom: 1px solid #ddd;
-      background-color: rgba(255,255,255,0.85);
-      margin: 20px;
-      border-radius: 10px;
-    }
-    section h2 {
-      color: #800000;
-      margin-bottom: 20px;
-      font-size: 2em;
-      position: relative;
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 1s ease;
-    }
-    section.visible h2 {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    section.visible h2::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, #800000, #004080, #800000);
-      animation: underline 1.5s ease forwards, glow 2s infinite alternate;
-    }
-    @keyframes underline {
-      from { width: 0; opacity: 0; }
-      to { width: 100%; opacity: 1; }
-    }
-    @keyframes glow {
-      from { box-shadow: 0 0 5px #800000; }
-      to { box-shadow: 0 0 15px #004080; }
-    }
-
-    section p, footer p {
-      opacity: 0;
-      transform: translateY(15px);
-      transition: all 1s ease;
-    }
-    section.visible p, footer.visible p {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    section img, footer img {
-      max-width: 600px;
-      width: 100%;
-      margin: 20px auto;
-      display: block;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-    section img:hover, footer img:hover, header img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      background-color: rgba(255,255,255,0.9);
-      border-top: 2px solid #800000;
-      font-style: italic;
-      color: #444;
-      border-radius: 10px;
-      margin: 20px;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <nav>
-    <div class="menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <ul>
-      <li><a href="#introducao">Introdução</a></li>
-      <li><a href="#padrinhos">Padrinhos</a></li>
-      <li><a href="#madrinhas">Madrinhas</a></li>
-      <li><a href="#local">Local</a></li>
-      <li><a href="#recomendacoes">Recomendações</a></li>
-    </ul>
-  </nav>
-  <div class="overlay"></div>
+    <div class="background-hearts"></div>
 
-  <header>
-    <img src="fotos/foto1.jpeg" alt="Monograma T & K">
-    <h1>Manual dos Padrinhos</h1>
-    <p>11.09.2026</p>
-  </header>
+    <main class="container">
 
-  <section id="introducao">
-    <h2>Bem-vindos</h2>
-    <img src="fotos/foto2.jpeg" alt="Capa Manual dos Padrinhos">
-    <p>Queridos padrinhos, este manual foi preparado com muito carinho para orientar e celebrar junto conosco este momento especial.</p>
-  </section>
+        <!-- ============================= -->
+        <!-- PROGRESSO -->
+        <!-- ============================= -->
 
-  <section id="padrinhos">
-    <h2>Trajes dos Padrinhos</h2>
-    <img src="fotos/foto4.jpeg" alt="Trajes Padrinhos">
-    <p>Pedimos que os padrinhos usem trajes de gala nas cores da paleta indicada.</p>
-  </section>
+        <div class="progress" id="progress">
 
-  <section id="madrinhas">
-    <h2>Trajes das Madrinhas</h2>
-    <img src="fotos/foto3.jpeg" alt="Trajes Madrinhas">
-    <p>As madrinhas devem usar vestidos de gala em tons de marsala.</p>
-  </section>
+            <div class="step active" data-step="1">
+                <span>1</span>
+                <small>Convite</small>
+            </div>
 
-  <section id="local">
-    <h2>Horário e Local</h2>
-    <img src="fotos/foto5.jpeg" alt="Horário e Local">
-    <p>Cerimônia às 18h00 na Capela de Santa Luzia. Recepção na casa dos pais da noiva.</p>
-  </section>
+            <div class="line"></div>
 
-  <section id="recomendacoes">
-    <h2>Recomendações Especiais</h2>
-    <img src="fotos/foto6.jpeg" alt="Recomendações">
-    <p>Chegar com antecedência, divertir-se, orar pelo futuro, tirar muitas fotos e lembrar que amamos vocês!</p>
-  </section>
+            <div class="step" data-step="2">
+                <span>2</span>
+                <small>Brincadeira</small>
+            </div>
 
-  <footer>
-    <img src="fotos/foto7.jpeg" alt="Versículo e Monograma">
-    <p>“Acima de tudo, revistam-se do amor, que é o elo perfeito.” – Colossenses 3:14</p>
-    <p>T & K – 11.09.2026</p>
-  </footer>
+            <div class="line"></div>
 
-  <!-- Sons para abrir/fechar menu -->
-  <audio id="menu-open-sound" src="sons/open.mp3" preload="auto"></audio>
-  <audio id="menu-close-sound" src="sons/close.mp3" preload="auto"></audio>
+            <div class="step" data-step="3">
+                <span>3</span>
+                <small>Comidinha</small>
+            </div>
 
-  <script>
-    // Script para revelar seções com transição suave
-    const elements = document.querySelectorAll('header, section, footer');
+            <div class="line"></div>
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.2 });
+            <div class="step" data-step="4">
+                <span>4</span>
+                <small>Soneca</small>
+            </div>
 
-    elements.forEach(el => observer.observe(el));
+            <div class="line"></div>
 
-    // Script para menu hambúrguer
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('nav ul');
-    const overlay = document.querySelector('.overlay');
-    const openSound = document.getElementById('menu-open-sound');
-    const closeSound = document.getElementById('menu-close-sound');
+            <div class="step" data-step="5">
+                <span>5</span>
+                <small>Missão</small>
+            </div>
 
-    menuToggle.addEventListener('click', () => {
-      const isActive = menuToggle.classList.toggle('active');
-      navMenu.classList.toggle('show');
-      overlay.classList.toggle('show');
+        </div>
 
-      // Reproduzir som
-      if (isActive) {
-        openSound.currentTime = 0;
-        openSound.play();
-      } else {
-        closeSound.currentTime = 0;
-        closeSound.play();
-      }
-    });
 
-    // Fechar menu ao clicar em um link
-    const navLinks = document.querySelectorAll('nav ul li a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('show');
-        menuToggle.classList.remove('active');
-        overlay.classList.remove('show');
-        closeSound.currentTime = 0;
-        closeSound.play();
-      });
-    });
+        <!-- ============================= -->
+        <!-- ETAPA 1 -->
+        <!-- ============================= -->
 
-    // Fechar menu ao clicar fora (overlay)
-    overlay.addEventListener('click', () => {
-      navMenu.classList.remove('show');
-      menuToggle.classList.remove('active');
-      overlay.classList.remove('show');
-      closeSound.currentTime = 0;
-      closeSound.play();
-    });
-  </script>
+        <section class="screen active" id="screen1">
+
+            <div class="card">
+
+                <div class="baby-icon">
+                    👶
+                </div>
+
+                <p class="mini-title">
+                    CONVITE OFICIAL DA LOLÔ
+                </p>
+
+                <h1>
+                    Você aceita<br>
+                    ficar com a Lolô?
+                </h1>
+
+                <p class="subtitle">
+                    Os papais estão pensando em sair para passear...
+                    mas existe uma missão muito importante esperando por você! ❤️
+                </p>
+
+                <div class="mission-box">
+
+                    <span>🎯 MISSÃO:</span>
+
+                    <strong>
+                        Cuidar da Lolô enquanto os papais passeiam.
+                    </strong>
+
+                </div>
+
+                <div class="buttons">
+
+                    <button
+                        type="button"
+                        class="btn yes"
+                        id="yesButton">
+                        SIM! 👶❤️
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn no"
+                        id="noButton">
+                        Não 😢
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- ETAPA 2 -->
+        <!-- ============================= -->
+
+        <section class="screen" id="screen2">
+
+            <div class="card">
+
+                <div class="baby-icon">
+                    🧸
+                </div>
+
+                <p class="mini-title">
+                    MISSÃO 1
+                </p>
+
+                <h2>
+                    Como você prefere brincar com a Lolô?
+                </h2>
+
+                <p class="subtitle">
+                    Escolha a atividade que vocês vão fazer juntas. ❤️
+                </p>
+
+
+                <div class="options">
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="brincadeira"
+                        data-value="Brincar com os brinquedos 🧸">
+
+                        <strong>
+                            🧸 Brinquedos
+                        </strong>
+
+                        <span>
+                            Hora de explorar tudo!
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="brincadeira"
+                        data-value="Ler livrinhos 📚">
+
+                        <strong>
+                            📚 Livrinhos
+                        </strong>
+
+                        <span>
+                            Uma historinha para a Lolô
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="brincadeira"
+                        data-value="Dançar e cantar 🎵">
+
+                        <strong>
+                            🎵 Música
+                        </strong>
+
+                        <span>
+                            Cantar e dançar com a Lolô
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="brincadeira"
+                        data-value="Brincar no chão e explorar 👶">
+
+                        <strong>
+                            👶 Explorar
+                        </strong>
+
+                        <span>
+                            Brincadeira livre supervisionada
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn main"
+                    id="brincadeiraButton">
+
+                    Continuar ❤️
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- ETAPA 3 -->
+        <!-- ============================= -->
+
+        <section class="screen" id="screen3">
+
+            <div class="card">
+
+                <div class="baby-icon">
+                    🍌
+                </div>
+
+                <p class="mini-title">
+                    MISSÃO 2
+                </p>
+
+                <h2>
+                    E a comidinha da Lolô?
+                </h2>
+
+                <p class="subtitle">
+                    Qual opção você prefere preparar/oferecer?
+                </p>
+
+
+                <div class="options">
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="comida"
+                        data-value="Frutinhas macias e amassadas 🍌">
+
+                        <strong>
+                            🍌 Frutinhas
+                        </strong>
+
+                        <span>
+                            Frutas preparadas em textura adequada
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="comida"
+                        data-value="Comidinha caseira adequada para bebê 🍚">
+
+                        <strong>
+                            🍚 Comidinha
+                        </strong>
+
+                        <span>
+                            Preparada conforme a rotina da Lolô
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="comida"
+                        data-value="Iogurte natural integral sem açúcar 🥛">
+
+                        <strong>
+                            🥛 Iogurte natural
+                        </strong>
+
+                        <span>
+                            Se já fizer parte da alimentação dela
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="comida"
+                        data-value="Vou seguir a alimentação que os papais deixarem ❤️">
+
+                        <strong>
+                            ❤️ Cardápio dos papais
+                        </strong>
+
+                        <span>
+                            Melhor deixar os papais decidirem
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <div class="warning">
+
+                    👶 <strong>Regra da Lolô:</strong>
+                    nada de alimentos novos ou diferentes sem autorização dos papais.
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn main"
+                    id="comidaButton">
+
+                    Continuar ❤️
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- ETAPA 4 -->
+        <!-- ============================= -->
+
+        <section class="screen" id="screen4">
+
+            <div class="card">
+
+                <div class="baby-icon">
+                    😴
+                </div>
+
+                <p class="mini-title">
+                    MISSÃO 3
+                </p>
+
+                <h2>
+                    E quando chegar a hora da soneca?
+                </h2>
+
+                <p class="subtitle">
+                    Como você vai ajudar a Lolô a descansar?
+                </p>
+
+
+                <div class="options">
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="sono"
+                        data-value="Colocar para dormir seguindo a rotina dela 💤">
+
+                        <strong>
+                            💤 Rotina da Lolô
+                        </strong>
+
+                        <span>
+                            Seguir exatamente o que os papais orientarem
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="sono"
+                        data-value="Colocar uma música tranquila 🎵">
+
+                        <strong>
+                            🎵 Música tranquila
+                        </strong>
+
+                        <span>
+                            Um ambiente calminho
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="sono"
+                        data-value="Ficar pertinho até ela relaxar ❤️">
+
+                        <strong>
+                            ❤️ Ficar pertinho
+                        </strong>
+
+                        <span>
+                            Acompanhando a rotina habitual
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="sono"
+                        data-value="Vou seguir exatamente as instruções dos papais 👶">
+
+                        <strong>
+                            👶 Instruções dos papais
+                        </strong>
+
+                        <span>
+                            Sem inventar moda!
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <div class="warning">
+
+                    ⚠️ Para dormir, a Lolô deve seguir a rotina e o local
+                    de sono seguro orientados pelos papais.
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn main"
+                    id="sonoButton">
+
+                    Continuar ❤️
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- ETAPA 5 -->
+        <!-- ============================= -->
+
+        <section class="screen" id="screen5">
+
+            <div class="card">
+
+                <div class="baby-icon">
+                    🥰
+                </div>
+
+                <p class="mini-title">
+                    ÚLTIMA MISSÃO
+                </p>
+
+                <h2>
+                    Qual será sua promessa para a Lolô?
+                </h2>
+
+                <p class="subtitle">
+                    Escolha sua principal missão enquanto os papais estiverem fora.
+                </p>
+
+
+                <div class="options">
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="promessa"
+                        data-value="Dar muito carinho para a Lolô ❤️">
+
+                        <strong>
+                            ❤️ Muito carinho
+                        </strong>
+
+                        <span>
+                            Carinho, atenção e colo quando apropriado
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="promessa"
+                        data-value="Fazer a Lolô dar muitas risadas 😂">
+
+                        <strong>
+                            😂 Fazer rir
+                        </strong>
+
+                        <span>
+                            Porque gargalhada de bebê é tudo!
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="promessa"
+                        data-value="Cuidar dela com muito amor 👶❤️">
+
+                        <strong>
+                            👶 Cuidar com amor
+                        </strong>
+
+                        <span>
+                            Atenção máxima durante a missão
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="option"
+                        data-category="promessa"
+                        data-value="Fazer tudo conforme os papais orientarem 😇">
+
+                        <strong>
+                            😇 Seguir as regras
+                        </strong>
+
+                        <span>
+                            Os papais mandam!
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn main"
+                    id="finishButton">
+
+                    Aceito a missão! 👶❤️
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- FINAL -->
+        <!-- ============================= -->
+
+        <section class="screen" id="finalScreen">
+
+            <div class="card final-card">
+
+                <div class="big-baby">
+                    👶❤️
+                </div>
+
+                <p class="mini-title">
+                    MISSÃO ACEITA
+                </p>
+
+                <h1>
+                    A Lolô está em boas mãos! 🥰
+                </h1>
+
+                <p class="subtitle">
+                    Os papais podem respirar tranquilos...
+                    a vovó aceitou a missão! ❤️
+                </p>
+
+
+                <div class="summary">
+
+                    <div>
+                        <span>🧸 Brincadeira</span>
+                        <strong id="finalBrincadeira"></strong>
+                    </div>
+
+                    <div>
+                        <span>🍌 Comidinha</span>
+                        <strong id="finalComida"></strong>
+                    </div>
+
+                    <div>
+                        <span>😴 Soneca</span>
+                        <strong id="finalSono"></strong>
+                    </div>
+
+                    <div>
+                        <span>❤️ Promessa</span>
+                        <strong id="finalPromessa"></strong>
+                    </div>
+
+                </div>
+
+
+                <div class="final-message">
+
+                    <span>👶</span>
+
+                    <p>
+                        Obrigado por aceitar cuidar
+                        da nossa pequena Lolô!
+                    </p>
+
+                    <span>❤️</span>
+
+                </div>
+
+                <p class="signature">
+                    Com carinho,<br>
+                    <strong>os papais da Lolô ❤️</strong>
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ============================= -->
+    <!-- FORMULÁRIO DE EMAIL -->
+    <!-- ============================= -->
+
+    <iframe
+        name="emailFrame"
+        id="emailFrame"
+        style="display:none;">
+    </iframe>
+
+
+    <form
+        id="emailForm"
+        action="https://formsubmit.co/overyet4627599@gmail.com"
+        method="POST"
+        target="emailFrame">
+
+        <input
+            type="hidden"
+            name="_subject"
+            value="👶❤️ A VOVÓ ACEITOU FICAR COM A LOLÔ!">
+
+        <input
+            type="hidden"
+            name="_template"
+            value="table">
+
+        <input
+            type="hidden"
+            name="_captcha"
+            value="false">
+
+        <input
+            type="hidden"
+            name="Resposta"
+            id="emailResposta">
+
+        <input
+            type="hidden"
+            name="Brincadeira"
+            id="emailBrincadeira">
+
+        <input
+            type="hidden"
+            name="Comidinha"
+            id="emailComida">
+
+        <input
+            type="hidden"
+            name="Soneca"
+            id="emailSono">
+
+        <input
+            type="hidden"
+            name="Promessa"
+            id="emailPromessa">
+
+    </form>
+
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
