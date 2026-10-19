@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Pedido enviado — {{ settings.store_name }}{% endblock %}
+{% block content %}
+<section class="success-page"><div class="success-icon">✓</div><div class="eyebrow">PEDIDO REGISTRADO</div><h1>Que bom ter você<br><em>por aqui!</em></h1><p>Obrigado, {{ customer_name }}. Seu pedido <strong>#{{ order_id }}</strong> foi registrado com sucesso.</p><div class="success-total"><span>Estimativa inicial</span><strong>R$ {{ '%.2f'|format(total)|replace('.', ',') }}</strong></div><p class="muted">A loja entrará em contato para confirmar os detalhes, prazo e valor final.</p><a class="button button-primary" href="{{ url_for('home') }}">Voltar à loja ↗</a></section>
+{% endblock %}

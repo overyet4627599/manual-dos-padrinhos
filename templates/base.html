@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ settings.store_name }}{% endblock %}</title>
+  <meta name="description" content="{{ settings.tagline }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>:root{--primary:{{ settings.primary_color or '#8b3157' }}}</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✦</span><span><strong>{{ settings.store_name }}</strong><small>{{ settings.tagline }}</small></span></a>
+  <nav><a href="{{ url_for('home') }}#catalogo">Produtos</a><a href="{{ url_for('home') }}#como-funciona">Como funciona</a><a class="nav-cta" href="{{ url_for('home') }}#catalogo">Fazer pedido <span>↗</span></a></nav>
+</header>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}<div class="flash-wrap">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+{% endwith %}
+<main>{% block content %}{% endblock %}</main>
+<footer class="footer"><div><strong>{{ settings.store_name }}</strong><p>{{ settings.tagline }}</p></div><div class="footer-right">Feito com carinho, do jeitinho que você imaginou. © {{ year }}</div></footer>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
